@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="Navbar">
+        <h2>Navbar</h2>
+        <button id="ReduceNav"><</button>
+        <div>
+            <ul>
+                <li>Home</li>
+                <li>Add Task</li>
+                <li>Portfolio</li>
+            </ul>
+        </div>
+    </div>
+    <div class="Dashboard">
+        <div class="Welcome">
+            <h1>Welcome back, Kevin</h1>
+            <p>What have you been working on lately ?</p>
+
+        </div>
+        <div class="Filter">
+            <h2>Filter</h2>
+        </div>
+        <div class="Stats">
+            <h2>Stats</h2>
+            <div>
+                <div class="TT"></div>
+                <div class="TH"></div>
+                <div class="GP"></div>
+                <div class="LT"></div>
+            </div>
+            
+        </div>
+        <div class="HeatMap">
+            <h2>Heatmap</h2>
+        </div>
+        <div class="PieChart">
+            <h2>PieChart</h2>
+        </div>
+    </div>
+    <script>
+        
+        const btn = document.getElementById("ReduceNav")
+        btn.addEventListener("click",()=>{
+            console.log('lets go')
+        })
+
+    </script>
+</body>
+</html>
