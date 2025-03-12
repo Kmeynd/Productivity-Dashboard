@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/chart.umd.js"></script>
     <title>Document</title>
 </head>
 <body>
+   
     <div class="Navbar">
         <h2>Navbar</h2>
         <button id="ReduceNav"><</button>
@@ -30,7 +32,9 @@
         <div class="Stats">
             <h2>Stats</h2>
             <div>
-                <div class="TT"></div>
+                <div class="TT">
+                    <%= db.map((obj)=>{obj.Task_name}).length %>
+                </div>
                 <div class="TH"></div>
                 <div class="GP"></div>
                 <div class="LT"></div>
@@ -39,18 +43,43 @@
         </div>
         <div class="HeatMap">
             <h2>Heatmap</h2>
+
         </div>
         <div class="PieChart">
-            <h2>PieChart</h2>
+            <!-- <h2>PieChart</h2> -->
+            <canvas id="Graph_Pie" style=" height:250px; width:250px"></canvas>
+             
         </div>
+         
     </div>
     <script>
-        
-        const btn = document.getElementById("ReduceNav")
-        btn.addEventListener("click",()=>{
-            console.log('lets go')
-        })
+        // const btn = document.getElementById("ReduceNav")
+        // btn.addEventListener("click",()=>{
+        //     console.log('lets go')
+        // })
+        const ctx = document.getElementById('Graph_Pie');
+        const labels = "<%= db.map((obj)=>{return obj.Task_name})%>".split(',')
+        const data = "<%= db.map((obj)=>{return obj.Time})%>".split(",")
 
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Hours',
+                    data: data,
+                    backgroundColor: [
+                        '#fc0303',
+                        '#03dbfc',
+                        '#31fc03',
+                    ],
+                }]
+            },
+            options : {
+                    maintainAspectRatio: false,
+                    responsive: false
+                }
+        });
     </script>
 </body>
 </html>

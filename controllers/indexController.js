@@ -1,7 +1,10 @@
+const db = require('../db/test')
+
 
 async function tasks(req,res){
     const task = "Learn Japanese"
-    res.render("index",{task : task})
+    const element = "Kevin"
+    res.render("index",{db : db, element:element})
 }
 
 module.exports = {
