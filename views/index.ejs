@@ -15,7 +15,7 @@
         <div>
             <ul>
                 <li>Home</li>
-                <li>Add Task</li>
+                <li><a href="/task">Add a task</a></li>
                 <li>Portfolio</li>
             </ul>
         </div>
@@ -28,16 +28,28 @@
         </div>
         <div class="Filter">
             <h2>Filter</h2>
+            <div>
+                <a href="/?period=7">7</a>
+                <a href="/?period=30">30</a>
+                <a href="/">365</a>
+            </div>
         </div>
         <div class="Stats">
             <h2>Stats</h2>
             <div>
                 <div class="TT">
-                    <%= db.map((obj)=>{obj.Task_name}).length %>
+                    <%= db.map((obj)=>{obj.task_name}).length %>
                 </div>
-                <div class="TH"></div>
-                <div class="GP"></div>
-                <div class="LT"></div>
+                <div class="TH">
+                    <%= db.reduce(function (result,item){ return result += parseInt(item.time)},parseInt(0))
+                    %>
+                </div>
+                <div class="GP">
+                    %
+                </div>
+                <div class="LT">
+                    <%= db[db.length-1].task_name %>
+                </div>
             </div>
             
         </div>
@@ -46,7 +58,6 @@
 
         </div>
         <div class="PieChart">
-            <!-- <h2>PieChart</h2> -->
             <canvas id="Graph_Pie" style=" height:250px; width:250px"></canvas>
              
         </div>
@@ -58,8 +69,8 @@
         //     console.log('lets go')
         // })
         const ctx = document.getElementById('Graph_Pie');
-        const labels = "<%= db.map((obj)=>{return obj.Task_name})%>".split(',')
-        const data = "<%= db.map((obj)=>{return obj.Time})%>".split(",")
+        const labels = "<%= cat.map((obj)=>{return obj.category_name})%>".split(',')
+        const data = "<%= cat.map((obj)=>{return obj.time})%>".split(",")
 
         new Chart(ctx, {
             type: 'doughnut',

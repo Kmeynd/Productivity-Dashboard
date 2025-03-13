@@ -1,12 +1,12 @@
-const db = require('../db/test')
+const db = require('../db/queries')
 
 
-async function tasks(req,res){
-    const task = "Learn Japanese"
-    const element = "Kevin"
-    res.render("index",{db : db, element:element})
+async function home(req,res){
+    const task = await db.getAllTasks()
+    const category = await db.getAllCategories()
+    res.render("index",{db : task, cat: category})
 }
 
 module.exports = {
-    tasks,
+    home,
 }
