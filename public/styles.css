@@ -1,3 +1,4 @@
+
 body{
     height: 100vh;
     margin: 0;
@@ -5,6 +6,7 @@ body{
     grid-template-columns: auto 1fr;
     background-color: black;
     color: white;
+    font-family: "Hedvig Letters Sans", sans-serif;
 }
 
 
@@ -51,6 +53,19 @@ body{
     background-color: rgb(31, 31, 31);
     margin:0 5px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Stats>div>div>h3{
+    margin: 0;
+}
+
+.GP>p{
+    margin: 0;
+}
+.GP>h4{
+    margin-bottom:0; 
 }
 
 .HeatMap{
@@ -58,6 +73,9 @@ body{
     margin: 10px;
     border-radius: 20px;
     grid-area: 2/2/4/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
 }
 
@@ -70,4 +88,20 @@ body{
     align-items: center;
     
     
+}
+
+#Map{
+    width: 400px;
+    height: auto;
+    display: grid;
+    /* grid-template-rows: 20px;  */
+    grid-template-columns: repeat(auto-fill,20px);
+    gap:0.2rem;
+}
+
+.day{
+    background-color: white;
+    box-sizing: border-box;
+    height: 20px;
+    background-color: rgb(94, 94, 94);
 }

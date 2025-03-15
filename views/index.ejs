@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/chart.umd.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Sans&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
+    
     <title>Document</title>
 </head>
 <body>
@@ -38,23 +43,29 @@
             <h2>Stats</h2>
             <div>
                 <div class="TT">
-                    <%= db.map((obj)=>{obj.task_name}).length %>
+                    <h4>Total tasks</h4>
+                    <h3><%= db.map((obj)=>{obj.task_name}).length %></h3>
+                    
                 </div>
                 <div class="TH">
-                    <%= db.reduce(function (result,item){ return result += parseInt(item.time)},parseInt(0))
-                    %>
+                    <h4>Total hours</h4>
+                    <h3><%= db.reduce(function (result,item){ return result += parseInt(item.time)},parseInt(0))%></h3>
                 </div>
                 <div class="GP">
-                    %
+                    <h4>Goal progress</h4> 
+                    <p>(<%=`${db.length}/${Goal*5}`%>)</p>
+                    <h3><%= (db.length*100/(Goal*5)).toFixed(2)%>%</h3>
                 </div>
                 <div class="LT">
-                    <%= db[db.length-1].task_name %>
+                    <h4>Latest task</h4>
+                    <h3><%= db[db.length-1].task_name %></h3>
                 </div>
             </div>
             
         </div>
         <div class="HeatMap">
-            <h2>Heatmap</h2>
+            <div id="Map">
+            </div>
 
         </div>
         <div class="PieChart">
@@ -84,13 +95,61 @@
                         '#03dbfc',
                         '#31fc03',
                     ],
+                    borderColor: '#1F1F1F'
                 }]
             },
             options : {
                     maintainAspectRatio: false,
-                    responsive: false
-                }
+                    responsive: false,
+                    plugins:{
+                        legend:{
+                            position:'top',
+                            align:'start',
+                            labels:{
+                                color: '#FFFFFF'
+                            }
+                        }
+                    }
+                },
+
         });
+
+        function showday(e,div){
+            console.log(div.getAttribute('task'))
+        }
+
+        function hideday(){
+
+        }
+        
+        const map = document.getElementById('Map')
+        let limit = '<%=Goal%>'
+        let db = '<%= db.map((obj)=>{return `${obj.task_name};${obj.time};${obj.date}`})%>'.split(',')
+        
+        // displaying div for everyday of the year
+        for (let i = 1 ; i <= limit;i++){
+            const div= document.createElement('div')
+            const date = `<%=dates_year%>`.split(',')
+            div.setAttribute('class','day')
+            div.setAttribute('id',`${date[i-1]}`) 
+
+            // Matching task dates and div that will represent that date (so we can change it's aspect) 
+            for(item of db){
+                let taskdate = item.split(';')
+                if(taskdate[2].substr(0,15)==date[i-1].substr(0,15)){
+                    if (div.getAttribute('task')==null){
+                        div.setAttribute('task',`${taskdate}`)
+                        div.setAttribute('style','background-color:green')
+                    }else{
+                        div.setAttribute('task',`${div.getAttribute('task')} ; ${taskdate}`)
+                    }
+                }  
+             }
+            
+            div.addEventListener("click",(e)=>{showday(e,div)})
+            map.appendChild(div)
+        }
+
     </script>
 </body>
 </html>

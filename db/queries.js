@@ -6,8 +6,7 @@ async function getAllTasks(){
 }
 
 async function getAllCategories(){
-    // Need to correct query to get category only one time 
-    const { rows } = await pool.query("SELECT time,category_name FROM task INNER JOIN category ON task_category_id = category_id");
+    const { rows } = await pool.query("SELECT category_name,SUM(time) AS time FROM category INNER JOIN task ON category_id = task_category_id GROUP BY category_name");
      return rows;
 }
 
