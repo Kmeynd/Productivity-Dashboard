@@ -115,7 +115,7 @@
         });
 
         function showday(e,div){
-            console.log(div.getAttribute('task'))
+            console.log(div)
         }
 
         function hideday(){
@@ -131,7 +131,7 @@
             const div= document.createElement('div')
             const date = `<%=dates_year%>`.split(',')
             div.setAttribute('class','day')
-            div.setAttribute('id',`${date[i-1]}`) 
+            // div.setAttribute('id',`${date[i-1]}`) 
 
             // Matching task dates and div that will represent that date (so we can change it's aspect) 
             for(item of db){

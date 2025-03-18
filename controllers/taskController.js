@@ -1,13 +1,13 @@
-const db = require('../db/test')
+const db = require('../db/queries')
 
 
 async function task(req,res){
-    res.render("task")
+    const category = await db.getAllCategories()
+    res.render("task",{cat:category})
 }
 
 async function sent(req,res){
     console.log(req.body)
-    db.push({Task_name:req.body.name, Time:req.body.time})
     res.redirect("/")
 }
 

@@ -1,0 +1,65 @@
+
+body{
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    color: white;
+    font-family: "Hedvig Letters Sans", sans-serif;
+    background-image: url("/images/wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.Deco{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}
+
+.formHolder{
+    margin: 100px 50px;
+    border: 1px solid rgb(210, 210, 210);
+    backdrop-filter: blur(2px);
+    border-radius: 2rem;
+    text-align: center;
+}
+
+form{
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+form>input,form>select{
+    margin: 10px 100px;
+}
+
+form>button{
+    margin: 10px 200px;
+    height: 50px;
+}
+
+.hiddenCat,.hiddenNewCat{
+    display: none;
+}
+
+#AddOldCategory:checked~.hiddenCat,#AddNewCategory:checked~.hiddenNewCat{
+    display: block;
+    margin: 0px 100px;
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+}
+
+.hiddenCat>*,.hiddenNewCat>*{
+    margin: 5px 0;
+}
+
+
+

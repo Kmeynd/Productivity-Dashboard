@@ -2,16 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/taskstyles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Sans&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
+    
     <title>Document</title>
 </head>
 <body>
-    <form action="/task" method="Post">
-        <label for="name">Task Name</label>
-        <input type="text" name="name" id="">
-        <label for="time">Time</label>
-        <input type="text" name="time" id="">
-        <button type="submit">Send</button>
-    </form>
+    <div class="Deco">
+        <h1>One step closer to your goals !</h1>
+    </div>
+    <div class="formHolder">
+        <h1>Describe your completed task</h1>
+        <form action="/task" method="Post">
+            <label for="AddOldCategory">Select an Old Category</label>
+            <input type="radio" name="AddCategory" id="AddOldCategory" value="AddOldCategory" checked="checked">
+            <label for="AddNewCategory">Add a new Category</label>
+            <input type="radio" name="AddCategory" id="AddNewCategory" value="AddNewCategory">
+
+            <div class="hiddenCat">
+                <label for="category">Category</label>
+
+                <select name="category" id="category">
+                    <% cat.map((obj)=>{ %>
+                        <option value="<%= obj.category_name %>"><%=obj.category_name%></option>
+                    <%})%>
+                </select>
+            </div>
+            
+            <div class="hiddenNewCat">
+                <label for="NewCategory">NewCategory</label>
+                <input type="text" name="NewCategory" id="NewCategory">
+            </div>
+
+            <label for="name">Task Name</label>
+            <input type="text" name="name" id="name">
+            <label for="time">Time (in min)</label>
+            <input type="number" name="time" id="time">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+   
 </body>
 </html>
