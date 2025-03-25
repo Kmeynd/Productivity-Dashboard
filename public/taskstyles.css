@@ -36,6 +36,15 @@ form{
     flex-direction: column;
 }
 
+form>input:invalid{
+    outline:none;
+    border: 1px solid red;
+}
+
+form>input:valid {
+    border-color: green;
+}
+
 form>input,form>select{
     margin: 10px 100px;
 }
@@ -43,6 +52,14 @@ form>input,form>select{
 form>button{
     margin: 10px 200px;
     height: 50px;
+}
+
+form>ul{
+    list-style-type: none;
+}
+
+form>ul>li{
+    color: red;
 }
 
 .hiddenCat,.hiddenNewCat{

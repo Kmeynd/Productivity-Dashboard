@@ -14,6 +14,7 @@
 <body>
     <div class="Deco">
         <h1>One step closer to your goals !</h1>
+        <a href="/">Home</a>
     </div>
     <div class="formHolder">
         <h1>Describe your completed task</h1>
@@ -28,7 +29,7 @@
 
                 <select name="category" id="category">
                     <% cat.map((obj)=>{ %>
-                        <option value="<%= obj.category_name %>"><%=obj.category_name%></option>
+                        <option value="<%= obj.category_id %>"><%=obj.category_name%></option>
                     <%})%>
                 </select>
             </div>
@@ -39,10 +40,17 @@
             </div>
 
             <label for="name">Task Name</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" minlength="3" required>
             <label for="time">Time (in min)</label>
-            <input type="number" name="time" id="time">
+            <input type="number" name="time" id="time" min="1" value="0" required>
             <button type="submit">Send</button>
+            <% if (locals.errors) {%>
+                <ul>
+                  <% errors.forEach(function(error) { %>
+                    <li><%= error.msg %></li>
+                  <% }); %>
+                </ul>
+            <% } %>
         </form>
     </div>
    
