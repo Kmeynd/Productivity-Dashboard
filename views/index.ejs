@@ -115,11 +115,28 @@
         });
 
         function showday(e,div){
-            console.log(div)
+            const divPos = div.getBoundingClientRect()
+            const displaytask = document.createElement('div')
+            displaytask.setAttribute('class','DisplayTask')
+            displaytask.setAttribute('style',`left:${divPos.right-60}px;top:${divPos.top+40}px`)
+            div.appendChild(displaytask)
+            let Tasksarr = div.getAttribute('task').split(';')
+            Tasksarr.map((e)=>{
+                const p = document.createElement('p')
+                p.textContent = `-${e.split(',')[0]}`
+                displaytask.appendChild(p)
+            })
         }
 
-        function hideday(){
+        function showdayBig(e,div){
+            const divPos = div.getBoundingClientRect()
+            const Target = document.getElementsByClassName('DisplayTask')[0]
+            Target.setAttribute('style',`left:${divPos.right-85}px;top:${divPos.top+40}px;height:200px;width:150px`)
 
+        }
+
+        function hideday(e,div){
+            div.removeChild(div.firstChild)
         }
         
         const map = document.getElementById('Map')
@@ -132,21 +149,23 @@
             const date = `<%=dates_year%>`.split(',')
             div.setAttribute('class','day')
             
-
             // Matching task dates and div that will represent that date (so we can change it's aspect) 
             for(item of db){
                 let taskdate = item.split(';')
                 if(taskdate[2].substr(0,15)==date[i-1].substr(0,15)){
                     if (div.getAttribute('task')==null){
                         div.setAttribute('task',`${taskdate}`)
-                        div.setAttribute('style','background-color:green')
+                        div.setAttribute('style','background-color:green; cursor:pointer')
+                        div.addEventListener("mouseover",(e)=>{showday(e,div)})
+                        div.addEventListener("click",(e)=>{showdayBig(e,div)})
+                        div.addEventListener("mouseout",(e)=>{hideday(e,div)})
                     }else{
                         div.setAttribute('task',`${div.getAttribute('task')} ; ${taskdate}`)
                     }
                 }  
              }
             
-            div.addEventListener("click",(e)=>{showday(e,div)})
+            
             map.appendChild(div)
         }
 

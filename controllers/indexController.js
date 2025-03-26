@@ -49,10 +49,20 @@ function listofDays(year){
 }
 
 async function home(req,res){
-    const task = await db.getAllTasks()
-    const category = await db.getAllCategories()
-    const dates_year = listofDays(2025)
-    const day_year = dates_year.length
+    let dates_year
+    let day_year
+    let task
+    let category
+    if(req.query.period=='30'){
+        // make new query from db to get tasks from last 30days
+    }else if (req.query.period=='7'){
+         // make new query from db to get tasks from last 7days
+    }else{
+        dates_year = listofDays(2025)
+        day_year = dates_year.length
+        task = await db.getAllTasks()
+        category = await db.getAllCategories()
+    }
     res.render("index",{db : task, cat: category, Goal: day_year, dates_year : dates_year})
 }
 
