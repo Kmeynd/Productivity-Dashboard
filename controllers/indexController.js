@@ -48,22 +48,35 @@ function listofDays(year){
 
 }
 
+function taskByPeriod(period){
+    const Today = new Date()
+    const ThisMonth = new Date()
+    ThisMonth.setDate(Today.getDate()-period)
+    return ThisMonth.toISOString().substr(0,10)
+
+}
+
 async function home(req,res){
-    let dates_year
-    let day_year
+    const thisYear = new Date()
+    let dates_year = listofDays(thisYear.getFullYear())
+    let day_period
     let task
     let category
-    if(req.query.period=='30'){
-        // make new query from db to get tasks from last 30days
-    }else if (req.query.period=='7'){
-         // make new query from db to get tasks from last 7days
+   
+    
+    if(req.query.period=='7' || req.query.period=='30' ){
+        const period = parseInt(req.query.period)
+        const date = taskByPeriod(period)
+        day_period = period
+        task = await db.getAllTasksPeriod(date)
+        category = await db.getAllCategoriesPeriod(date)
+
     }else{
-        dates_year = listofDays(2025)
-        day_year = dates_year.length
+        day_period = dates_year.length
         task = await db.getAllTasks()
         category = await db.getAllCategories()
     }
-    res.render("index",{db : task, cat: category, Goal: day_year, dates_year : dates_year})
+    res.render("index",{db : task, cat: category, Goal: day_period, dates_year : dates_year, limit : dates_year.length})
 }
 
 module.exports = {

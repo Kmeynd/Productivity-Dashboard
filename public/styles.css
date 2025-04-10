@@ -1,3 +1,8 @@
+:root{
+    --back:  rgb(31, 31, 31);
+    --specialgreen: rgb(0, 107, 41);
+    --neongreen: rgb(62, 204, 84);
+}
 
 body{
     height: 100vh;
@@ -11,12 +16,47 @@ body{
 
 
 .Navbar{
-    background-color:grey;
-    width: 20vw;
+    background-color: var(--back);
+    width: 15vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.Navbar>h2{
+    text-align: center;
+}
+
+.Navbar>div{
+    width: 80%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    text-align: center;
+    list-style-type: none;
+}
+
+.Navbar>div>li{
+    height: auto;
+}
+ 
+.Navbar>div>li>a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    padding: 10px 0;
+    border-radius: 1em;
+    transition: 0.2s ease-in-out;
+} 
+
+.Navbar>div>li>a:hover{
+    background-color: var(--specialgreen);
+    border:1px solid var(--neongreen);
+    
 }
 
 .Dashboard{
@@ -37,6 +77,44 @@ body{
     margin: 0;
 }
 
+.Filter{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.Filter>div{
+    border: 2px solid grey;
+    border-radius: 1em;
+    width: 300px;
+    height: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background-color:var(--back);
+    overflow: hidden;
+}
+
+
+.Filter>div>a{
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-decoration: none;
+    color: white;
+}
+
+.Filter>div>a:not(:last-child){
+    border-right: 2px solid grey;
+    box-sizing: border-box;
+}
+
+.Filter>div>a:hover{
+    background-color: rgb(74, 74, 74);
+    transition: 0.5s;
+}
+
+
 .Stats{
     margin: 0 10px;
 }
@@ -46,19 +124,31 @@ body{
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 2fr;
-    grid-template-rows: 50%;
+    grid-template-rows: 60%;
 }
 
-.Stats>div>div{
-    background-color: rgb(31, 31, 31);
+.Stats>div>div{   
+    background-color:var(--back);
+    border: 1px solid transparent;
     margin:0 5px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition:0.2s ease-in-out;
+    
+}
+
+.Stats>div>div:hover{
+    /* background-image: linear-gradient(to bottom right,black, var(--specialgreen)); */
+    background-color: var(--specialgreen);
+    border:1px solid var(--neongreen);
+    cursor: pointer;
+    
 }
 .Stats>div>div>h3{
-    margin: 0;
+    margin:10px 0 0 0;
+    /* color: var(--neongreen); */
 }
 
 .GP>p{
@@ -69,7 +159,7 @@ body{
 }
 
 .HeatMap{
-    background-color: rgb(31, 31, 31);
+    background-color:var(--back);
     margin: 10px;
     border-radius: 20px;
     grid-area: 2/2/4/3;
@@ -81,7 +171,7 @@ body{
 
 .DisplayTask{
     position: absolute;
-    height: 100px;
+    height: 50px;
     width: 100px;
     background-color: black;
     border-radius: 1em;
@@ -101,10 +191,10 @@ body{
     }
     80%{
         transform:scaleX(1.1);
-        height: 110px;
+        height: 60px;
     }
     100%{
-       height: 100px;
+       height: 50px;
     }
 }
 
@@ -113,7 +203,7 @@ body{
 }
 
 .PieChart{
-    background-color: rgb(31, 31, 31);
+    background-color: var(--back);
     margin: 10px;
     border-radius: 20px;
     display: flex;
@@ -133,8 +223,7 @@ body{
 }
 
 .day{
-    background-color: white;
     box-sizing: border-box;
     height: 20px;
-    background-color: rgb(94, 94, 94);
+    background-color: rgb(75, 75, 75);
 }

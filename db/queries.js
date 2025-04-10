@@ -5,9 +5,19 @@ async function getAllTasks(){
       return rows;
 }
 
+async function getAllTasksPeriod(date){
+    const { rows } = await pool.query(`SELECT * FROM task WHERE date >= '${date}'`)
+    return rows;
+}
+
 async function getAllCategories(){
     const { rows } = await pool.query("SELECT category_id,category_name,SUM(time) AS time FROM category INNER JOIN task ON category_id = task_category_id GROUP BY category_id,category_name");
      return rows;
+}
+
+async function getAllCategoriesPeriod(date){
+    const { rows } = await pool.query(`SELECT category_id,category_name,SUM(time) AS time FROM category INNER JOIN task ON category_id = task_category_id WHERE date >= '${date}' GROUP BY category_id,category_name`)
+    return rows
 }
 
 async function addTask(obj){
@@ -32,7 +42,9 @@ async function addCat(obj){
 
 module.exports={
     getAllTasks,
+    getAllTasksPeriod,
     getAllCategories,
+    getAllCategoriesPeriod,
     addTask,
     addCat
 }

@@ -15,14 +15,11 @@
 <body>
    
     <div class="Navbar">
-        <h2>Navbar</h2>
-        <button id="ReduceNav"><</button>
+        <h2>Productivity Dashboard</h2>
         <div>
-            <ul>
-                <li>Home</li>
-                <li><a href="/task">Add a task</a></li>
-                <li>Portfolio</li>
-            </ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/task">Add a task</a></li>
+            <li><a href="/">Portfolio</a></li>
         </div>
     </div>
     <div class="Dashboard">
@@ -32,11 +29,10 @@
 
         </div>
         <div class="Filter">
-            <h2>Filter</h2>
             <div>
-                <a href="/?period=7">7</a>
-                <a href="/?period=30">30</a>
-                <a href="/">365</a>
+                <a href="/?period=7">7 days</a>
+                <a href="/?period=30">30 days </a>
+                <a href="/"><%= dates_year[0].getFullYear() %></a>
             </div>
         </div>
         <div class="Stats">
@@ -58,7 +54,7 @@
                 </div>
                 <div class="LT">
                     <h4>Latest task</h4>
-                    <h3><%= db[db.length-1].task_name %></h3>
+                    <h3><%= db[0] ? db[db.length-1].task_name : 'Nothing' %></h3>
                 </div>
             </div>
             
@@ -75,72 +71,91 @@
          
     </div>
     <script>
-        // const btn = document.getElementById("ReduceNav")
-        // btn.addEventListener("click",()=>{
-        //     console.log('lets go')
-        // })
+
+        // Creating the Pie Graph
         const ctx = document.getElementById('Graph_Pie');
         const labels = "<%= cat.map((obj)=>{return obj.category_name})%>".split(',')
         const data = "<%= cat.map((obj)=>{return obj.time})%>".split(",")
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Hours',
-                    data: data,
-                    backgroundColor: [
-                        '#fc0303',
-                        '#03dbfc',
-                        '#31fc03',
-                    ],
-                    borderColor: '#1F1F1F'
-                }]
-            },
-            options : {
-                    maintainAspectRatio: false,
-                    responsive: false,
-                    plugins:{
-                        legend:{
-                            position:'top',
-                            align:'start',
-                            labels:{
-                                color: '#FFFFFF'
+        if (labels!=''){
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Minutes',
+                        data: data,
+                        backgroundColor: [
+                            '#ef476f',
+                            '#ffd166',
+                            '#06d6a0',
+                            '#118ab2',
+                            '#073b4c',
+                            '#b8b8ff',
+                            '#ffeedd',
+                            '#e7ecef',
+                            '#780000',
+                            '#edae49',
+                        ],
+                        borderColor: '#1F1F1F'
+                    }]
+                },
+                options : {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        plugins:{
+                            legend:{
+                                position:'top',
+                                align:'start',
+                                labels:{
+                                    color: '#FFFFFF'
+                                }
                             }
                         }
-                    }
-                },
+                    },
 
-        });
+            });
+        }
 
+
+        // Shows Completed date on hovered day on Heat map 
         function showday(e,div){
             const divPos = div.getBoundingClientRect()
             const displaytask = document.createElement('div')
             displaytask.setAttribute('class','DisplayTask')
             displaytask.setAttribute('style',`left:${divPos.right-60}px;top:${divPos.top+40}px`)
             div.appendChild(displaytask)
+
             let Tasksarr = div.getAttribute('task').split(';')
-            Tasksarr.map((e)=>{
-                const p = document.createElement('p')
-                p.textContent = `-${e.split(',')[0]}`
-                displaytask.appendChild(p)
-            })
+            const date = new Date (Tasksarr[0].split(',')[2])
+            const p = document.createElement('p')
+            p.textContent = date.toISOString().substr(0,10)
+            p.setAttribute('style','margin-top:10px')
+            displaytask.appendChild(p)
+            
         }
 
+        // Shows completed tasks in a bigger div
         function showdayBig(e,div){
             const divPos = div.getBoundingClientRect()
             const Target = document.getElementsByClassName('DisplayTask')[0]
             Target.setAttribute('style',`left:${divPos.right-85}px;top:${divPos.top+40}px;height:200px;width:150px`)
 
+            let Tasksarr = div.getAttribute('task').split(';')
+            Tasksarr.map((e)=>{
+                const p = document.createElement('p')
+                p.textContent = `-${e.split(',')[0]}`
+                Target.appendChild(p)
+            })
+
         }
 
+        // Hide tasks when unhovered
         function hideday(e,div){
             div.removeChild(div.firstChild)
         }
         
         const map = document.getElementById('Map')
-        let limit = '<%=Goal%>'
+        let limit = '<%=limit%>'
         let db = '<%= db.map((obj)=>{return `${obj.task_name};${obj.time};${obj.date}`})%>'.split(',')
         
         // displaying div for everyday of the year
@@ -148,9 +163,10 @@
             const div= document.createElement('div')
             const date = `<%=dates_year%>`.split(',')
             div.setAttribute('class','day')
-            
+            console.log(db=='')
             // Matching task dates and div that will represent that date (so we can change it's aspect) 
-            for(item of db){
+            if(db!=''){
+                for(item of db){
                 let taskdate = item.split(';')
                 if(taskdate[2].substr(0,15)==date[i-1].substr(0,15)){
                     if (div.getAttribute('task')==null){
@@ -164,8 +180,8 @@
                     }
                 }  
              }
-            
-            
+
+            }
             map.appendChild(div)
         }
 
