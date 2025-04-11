@@ -11,22 +11,25 @@ async function sent(req,res){
     const category = await db.getAllCategories()
     const catarray = category.map((e) => e.category_name)
 
-    if(errors.errors.filter(e => e.path=='time'||e.path=='name' )!=''){
+    // Check if necessary field are filled
+    if(errors.errors.filter(e => e.path=='time'||e.path=='name'||e.path=='password' )!=''){
         return res.status(400).render("task",{
             cat:category, 
-            errors:errors.array().filter(e => e.path=='time'|| e.path=='name')
+            errors:errors.array().filter(e => e.path=='time'|| e.path=='name'||e.path=='password')
         })
     }
-    
+    // Simply add a task if we use an old category
     if(req.body.AddCategory=='AddOldCategory'){
         const send = await db.addTask(req.body)
     }else{
+        // if not check if there is an error with the new category field
         if(errors.errors.filter(e => e.path=='NewCategory')!=''){
             return res.status(400).render("task",{
                 cat:category, 
                 errors:errors.array()
             })
         }
+        // and check if new category already exists (if it does we send a custom error message)
         if (catarray.includes(req.body.NewCategory)){
             return res.status(400).render("task",{
                 cat:category, 
@@ -43,5 +46,3 @@ module.exports = {
     task,
     sent,
 }
-
-// Do not use coma

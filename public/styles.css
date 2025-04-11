@@ -60,7 +60,6 @@ body{
 }
 
 .Dashboard{
-    /* background-color: rgba(0, 0, 255, 0.185); */
     display: grid;
     grid-template-rows: 150px 0.8fr 1.2fr;
     grid-template-columns: 1fr 1fr;  
@@ -140,7 +139,6 @@ body{
 }
 
 .Stats>div>div:hover{
-    /* background-image: linear-gradient(to bottom right,black, var(--specialgreen)); */
     background-color: var(--specialgreen);
     border:1px solid var(--neongreen);
     cursor: pointer;
@@ -148,7 +146,6 @@ body{
 }
 .Stats>div>div>h3{
     margin:10px 0 0 0;
-    /* color: var(--neongreen); */
 }
 
 .GP>p{
@@ -217,7 +214,6 @@ body{
     width: 400px;
     height: auto;
     display: grid;
-    /* grid-template-rows: 20px;  */
     grid-template-columns: repeat(auto-fill,20px);
     gap:0.2rem;
 }
@@ -226,4 +222,79 @@ body{
     box-sizing: border-box;
     height: 20px;
     background-color: rgb(75, 75, 75);
+}
+
+@media only screen and (max-width:1365px) {
+    body{
+        display: block;
+    }
+
+    .Navbar{
+        height: 20vh;
+        width: 100%;
+    }
+    .Navbar>div{
+        display: flex;
+        flex-direction: row;
+        /* justify-content: space-around; */
+    }
+    .Navbar>div>li{
+        width: 200px;
+        margin: 0 5px;
+    }
+
+    .Dashboard{
+        display: block;
+    }
+
+    .Welcome{
+        margin: 50px 0;
+    }
+    .Stats{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .Stats>div{
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 33%);
+        grid-template-rows:150px ;
+        height: 300px;
+        
+    
+    }
+
+    .Stats>div>div{
+        margin:5px;
+        text-align: center;  
+    } 
+
+    .LT{
+        grid-area: 2/1/3/4;
+    }
+
+    .HeatMap{
+        background-color: transparent;
+        margin: 20px 0;
+    }
+
+    .DisplayTask{
+        position: fixed;
+        border:1px solid var(--neongreen);
+        animation: none;
+    }
+
+    #Map{
+        width: 60%;
+        grid-template-columns: repeat(auto-fill, 20px);
+        margin-left: 20px;
+    }
+
+    .PieChart{
+        height: 400px;  
+    }
+    
 }

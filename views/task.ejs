@@ -44,7 +44,9 @@
             <input type="text" name="name" id="name" minlength="3" required>
             <label for="time">Time (in min)</label>
             <input type="number" name="time" id="time" min="1" value="0" required>
-            <button type="submit">Send</button>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+            <button type="submit">Add</button>
             <% if (locals.errors) {%>
                 <ul>
                   <% errors.forEach(function(error) { %>

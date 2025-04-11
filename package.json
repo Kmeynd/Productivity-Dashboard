@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dummydata":""
+  },
   "dependencies": {
     "chart.js": "^4.4.8",
     "dotenv": "^16.4.7",
