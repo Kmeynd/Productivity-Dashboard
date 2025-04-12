@@ -227,6 +227,7 @@ body{
 @media only screen and (max-width:1365px) {
     body{
         display: block;
+        height: auto;
     }
 
     .Navbar{
@@ -236,7 +237,6 @@ body{
     .Navbar>div{
         display: flex;
         flex-direction: row;
-        /* justify-content: space-around; */
     }
     .Navbar>div>li{
         width: 200px;

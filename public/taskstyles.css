@@ -98,3 +98,40 @@ form>ul>li{
 
 
 
+@media only screen and (max-width:1365px) {
+ body{
+    background-image: none;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+ }
+
+ .Deco{
+    text-align: center;
+    height: 30vh;
+ }
+
+ .formHolder{
+    margin: 20px 0;
+    width: 90%;
+ }
+ .formHolder>h1{
+    width: 100%;
+ }
+
+
+ #AddOldCategory:checked~.hiddenCat, #AddNewCategory:checked~.hiddenNewCat {
+    margin: 0;
+ }
+
+ form>input{
+    margin: 10px 0;
+ }
+
+ form>button{
+    margin: 10px 30%;
+ }
+
+}
