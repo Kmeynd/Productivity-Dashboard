@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/chart.umd.js"></script>
 
+    <link rel="shortcut icon" href="/images/speedometer.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Sans&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
     
-    <title>Document</title>
+    <title>Productivity Dashboard</title>
 </head>
 <body>
    
@@ -117,7 +118,7 @@
         }
 
 
-        // Shows Completed date on hovered day on Heat map 
+        // Shows date (if task completed) on hovered day on Heat map 
         function showday(e,div){
 
             // add a click function to enlarge and display detail in the div / add a mouseout to delete the div
@@ -133,7 +134,7 @@
             let Tasksarr = div.getAttribute('task').split(';')
             const date = new Date (Tasksarr[0].split(',')[2])
             const p = document.createElement('p')
-            p.textContent = date.toISOString().substr(0,10)
+            p.textContent = date.toLocaleString().substr(0,10)
             p.setAttribute('style','margin-top:10px')
             displaytask.appendChild(p)
             
@@ -158,10 +159,6 @@
                 div.removeChild(div.firstChild)
             }
         }
-
-        
-
-        
         
         const map = document.getElementById('Map')
         let limit = '<%=limit%>'
@@ -172,7 +169,6 @@
             const div= document.createElement('div')
             const date = `<%=dates_year%>`.split(',')
             div.setAttribute('class','day')
-            console.log(db=='')
             // Matching task dates and div that will represent that date (so we can change it's aspect) 
             if(db!=''){
                 for(item of db){
@@ -182,8 +178,6 @@
                         div.setAttribute('task',`${taskdate}`)
                         div.setAttribute('style','background-color:green; cursor:pointer')
                         div.addEventListener("mouseover",(e)=>{showday(e,div)})
-                        
-                        
                     }else{
                         div.setAttribute('task',`${div.getAttribute('task')} ; ${taskdate}`)
                     }

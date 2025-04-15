@@ -1,15 +1,5 @@
 const db = require('../db/queries')
 
-// function daysInYear(year) {
-//     if(year){
-//         return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
-//     }else{
-//         const year =new Date().getFullYear()
-//         return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
-//     }
-   
-// }
-
 function listofDays(year){
     let m = 1
     let listday = []

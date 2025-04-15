@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dummydata":""
+    "dummydata":"node db/populatedb.js"
   },
   "dependencies": {
     "chart.js": "^4.4.8",
