@@ -1,8 +1,8 @@
 const pool = require("./pool");
 
 async function getAllTasks(){
-     const { rows } = await pool.query("SELECT * FROM task");
-      return rows;
+    const { rows } = await pool.query("SELECT * FROM task");
+    return rows;
 }
 
 async function getAllTasksPeriod(date){
@@ -21,18 +21,22 @@ async function getAllCategoriesPeriod(date){
 }
 
 async function addTask(obj){
-    const date = new Date()
-    const dateString = date.toISOString().substr(0,10)
-    const {rows} = await pool.query(`INSERT INTO task (task_name,time,date,task_category_id) VALUES ('${obj.name}',${obj.time},'${dateString}',${obj.category})`);
+    // USING a column TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP in db so no need to send date
+    // const date = new Date()
+    // const dateString = date.toISOString().substr(0,10)
+    // const {rows} = await pool.query(`INSERT INTO task (task_name,time,date,task_category_id) VALUES ('${obj.name}',${obj.time},'${dateString}',${obj.category})`);
+    const {rows} = await pool.query(`INSERT INTO task (task_name,time,task_category_id) VALUES ('${obj.name}',${obj.time},${obj.category})`);
     return;
 }
 
 async function addCat(obj){
-    const date = new Date()
-    const dateString = date.toISOString().substr(0,10)
+     // USING a column TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP in db so no need to send date
+    // const date = new Date()
+    // const dateString = date.toISOString().substr(0,10)
     const catRows = await pool.query(`INSERT INTO category (category_name) VALUES ('${obj.NewCategory}')`)
     const NewCatId = await pool.query("SELECT category_id FROM category ORDER BY category_id DESC LIMIT 1")
-    const { rows } = await pool.query(`INSERT INTO task (task_name,time,date,task_category_id) VALUES ('${obj.name}',${obj.time},'${dateString}',${NewCatId.rows[0].category_id})`);
+    // const { rows } = await pool.query(`INSERT INTO task (task_name,time,date,task_category_id) VALUES ('${obj.name}',${obj.time},'${dateString}',${NewCatId.rows[0].category_id})`);
+    const { rows } = await pool.query(`INSERT INTO task (task_name,time,task_category_id) VALUES ('${obj.name}',${obj.time},${NewCatId.rows[0].category_id})`);
     return;
 }
 

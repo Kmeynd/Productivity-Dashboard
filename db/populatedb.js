@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS task (
     task_id SERIAL,
     task_name VARCHAR (255),
     time INTEGER,
-    date DATE,
+    date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     task_category_id INTEGER REFERENCES category (category_id)
 );
 
