@@ -1,7 +1,7 @@
 # 📊 Productivity Dashboard
 
 A personal web app to track and visualize my productivity over time.  
-This dashboard helps you stay accountable by showing what you've completed recently, with multiple perspectives on my progress: stats, charts, and a heatmap.
+This dashboard helps me stay accountable by showing what I've completed recently, with multiple perspectives on my progress: stats, charts, and a heatmap.
 
 ## 🚀 Features
 
